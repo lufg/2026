@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="posts-list">
+    {% for post in posts %}
+    <article class="post-card">
+        <h2 class="post-title"><a href="{{ url_for('detail', record_id=post.id) }}">{{ post.title }}</a></h2>
+        
+        {% if post.quote %}
+        <div class="post-quote">
+            <strong>“{{ post.quote }}”</strong>
+        </div>
+        {% endif %}
+        
+        {% if post.review %}
+        <div class="post-review">
+            <span class="review-label">点评：</span>{{ post.review }}
+        </div>
+        {% endif %}
+        
+        <div class="post-summary">
+            {{ post.summary[:100] }}...
+        </div>
+        
+        <a href="{{ url_for('detail', record_id=post.id) }}" class="read-more" target="_blank">阅读全文 &rarr;</a>
+    </article>
+    {% endfor %}
+</div>
+{% endblock %}
