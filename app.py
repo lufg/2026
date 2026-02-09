@@ -1,7 +1,17 @@
 from flask import Flask, render_template, abort
 import requests
 import time
-from config import Config
+import os
+
+# 尝试导入本地配置，如果失败（如在Vercel上）则使用环境变量配置
+try:
+    from config import Config
+except ImportError:
+    class Config:
+        FEISHU_APP_ID = os.environ.get("FEISHU_APP_ID")
+        FEISHU_APP_SECRET = os.environ.get("FEISHU_APP_SECRET")
+        BASE_ID = "B9DOwvEymiferskGjBzcVnR2nUv"
+        TABLE_ID = "tblMfyzEqYKdWmTL"
 
 app = Flask(__name__)
 app.config.from_object(Config)
